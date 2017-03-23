@@ -11,6 +11,6 @@
 
     <groupId>org.eddy</groupId>
     <artifactId>plugin</artifactId>
-
-
+    <packaging>jar</packaging>
+    <name>QiuQiu.plugin</name>
 </project>
