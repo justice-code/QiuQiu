@@ -12,6 +12,12 @@
     <groupId>org.eddy</groupId>
     <artifactId>apply</artifactId>
     <packaging>jar</packaging>
-    <name>QiuQiu.plugin</name>
+    <name>QiuQiu.apply</name>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <maven.test.skip>true</maven.test.skip>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
 </project>
