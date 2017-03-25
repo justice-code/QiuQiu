@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+        <!ELEMENT url (test+)>
+        <!ATTLIST url
+                url CDATA #REQUIRED
+                type (jsoup|httpClient) #IMPLIED
+                class CDATA #IMPLIED
+                >
+        <!ELEMENT test (urlRule+)>
+        <!ATTLIST test
+            selectType CDATA #REQUIRED
+            expression CDATA #IMPLIED
+            validate CDATA #REQUIRED
+        >
+
+        <!ELEMENT urlRule EMPTY>
+        <!ATTLIST urlRule
+                selectType  CDATA #REQUIRED
+                expression  CDATA #REQUIRED
+                property  CDATA #REQUIRED
+                skipTest (true|false) #IMPLIED
+        >
