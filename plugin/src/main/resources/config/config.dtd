@@ -5,7 +5,7 @@
         <!ATTLIST rule
                 table CDATA #REQUIRED
                 field CDATA #REQUIRED
-                >
+        >
         <!ELEMENT data EMPTY>
         <!ATTLIST data
                 schema  CDATA #REQUIRED
