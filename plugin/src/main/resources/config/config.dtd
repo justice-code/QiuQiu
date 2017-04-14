@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-        <!ELEMENT config (table+)>
-        <!ELEMENT table (filed+)>
-        <!ELEMENT filed (rule)>
-        <!ATTLIST filed
-                name  CDATA #REQUIRED
+        <!ELEMENT rules (rule+)>
+        <!ELEMENT rule (data+)>
+        <!ATTLIST rule
+                table CDATA #REQUIRED
+                field CDATA #REQUIRED
+                >
+        <!ELEMENT data EMPTY>
+        <!ATTLIST data
+                schema  CDATA #REQUIRED
+                table  CDATA #REQUIRED
+                class  CDATA #REQUIRED
         >
-        <!ELEMENT rule EMPTY>
