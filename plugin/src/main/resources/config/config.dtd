@@ -5,7 +5,7 @@
         <!ATTLIST rule
                 table CDATA #REQUIRED
                 column CDATA #REQUIRED
-                type CDATA #REQUIRED
+                javaType CDATA #REQUIRED
         >
         <!ELEMENT data EMPTY>
         <!ATTLIST data

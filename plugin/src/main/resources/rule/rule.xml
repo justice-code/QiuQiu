@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE rules SYSTEM "../config/config.dtd">
 <rules>
-    <rule table="" column="" type="">
+    <rule table="" column="" javaType="">
         <!-- schema：对应的schema table:对应的表 class：解析规则,如 id%4 > 1属于当前节点-->
         <data schema="" table="" class=""/>
         <data schema="" table="" class=""/>
