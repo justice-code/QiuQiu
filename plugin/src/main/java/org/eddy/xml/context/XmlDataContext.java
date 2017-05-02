@@ -1,5 +1,6 @@
 package org.eddy.xml.context;
 
+import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.eddy.xml.UrlDtdPathResolver;
 import org.eddy.xml.data.DataNode;
@@ -22,13 +23,23 @@ import java.util.stream.Collectors;
 /**
  * Created by eddy on 2017/5/2.
  */
+@Getter
 public class XmlDataContext {
 
     private static final Logger logger = LoggerFactory.getLogger(XmlDataContext.class);
 
     private List<DataNode> nodes;
 
-    public XmlDataContext(String path) {
+    private static XmlDataContext context = new XmlDataContext("rule/rule.xml");
+
+
+    public static XmlDataContext getContext() {
+        return context;
+    }
+
+    //**********************私有构造函数*************************
+
+    private XmlDataContext(String path) {
         try {
             this.nodes = loadXml(path);
         } catch (Exception e) {
@@ -36,6 +47,8 @@ public class XmlDataContext {
             throw new RuntimeException("parse xml error", e);
         }
     }
+
+    //**********************解析xml*****************************
 
     private List<DataNode> loadXml(String path) throws Exception{
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
