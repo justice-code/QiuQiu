@@ -3,6 +3,8 @@ package org.eddy.xml.context;
 import org.apache.commons.lang3.StringUtils;
 import org.eddy.xml.UrlDtdPathResolver;
 import org.eddy.xml.data.DataNode;
+import org.eddy.xml.data.KeyColumn;
+import org.eddy.xml.rule.Comparator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -45,17 +47,53 @@ public class XmlDataContext {
 
         NodeList rootChildren = document.getDocumentElement().getChildNodes();
         for (int i = 0; i < rootChildren.getLength(); i++) {
-            DataNode node = parseNode(rootChildren.item(i));
-            results.add(node);
+            List<DataNode> nodes = parseNode(rootChildren.item(i));
+            results.addAll(nodes);
         }
 
         return results.stream().filter(Objects::nonNull).collect(Collectors.toList());
     }
 
-    private DataNode parseNode(Node item) {
-        if (item.getNodeType() == Node.ELEMENT_NODE && StringUtils.equals(item.getNodeName(), DataNode.ELEMENT_NAME)) {
+    private List<DataNode> parseNode(Node item) throws Exception{
+        List<DataNode> results = new ArrayList<>();
 
+        // 节点非element节点 或 element节点name非rule, 则直接返回
+        if (item.getNodeType() != Node.ELEMENT_NODE || !StringUtils.equals(item.getNodeName(), DataNode.RULE_NODE_NAME)) {
+            return results;
         }
-        return null;
+
+        Element ruleNode = (Element) item;
+        String table = ruleNode.getAttribute("table");
+        String column = ruleNode.getAttribute("column");
+        String javaType = ruleNode.getAttribute("javaType");
+        KeyColumn keyColumn = new KeyColumn(table, column, javaType);
+
+        NodeList ruleChildren = item.getChildNodes();
+
+        for (int i = 0; i < ruleChildren.getLength(); i++) {
+            DataNode dataResult = parseData(ruleChildren.item(i));
+
+            if (Objects.nonNull(dataResult)) {
+                dataResult.setColumn(keyColumn);
+                results.add(dataResult);
+            }
+        }
+
+        return results;
+    }
+
+    private DataNode parseData(Node item) throws Exception {
+        // 节点非element节点 或 element节点name非data, 则直接返回
+        if (item.getNodeType() != Node.ELEMENT_NODE || !StringUtils.equals(item.getNodeName(), DataNode.DATA_NODE_NAME)) {
+            return null;
+        }
+
+        Element dataElement = (Element) item;
+        String schema = dataElement.getAttribute("schema");
+        String table = dataElement.getAttribute("table");
+        String comparator = dataElement.getAttribute("class");
+        Comparator comparatorClass = (Comparator) Class.forName(comparator).newInstance();
+
+        return new DataNode(schema, table, comparatorClass);
     }
 }
