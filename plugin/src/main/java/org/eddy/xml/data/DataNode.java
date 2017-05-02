@@ -29,7 +29,7 @@ public class DataNode {
     private Comparator comparator;
 
     /**
-     * 字段名
+     * 关键列
      */
-    private String column;
+    private KeyColumn column;
 }
