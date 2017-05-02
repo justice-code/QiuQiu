@@ -4,7 +4,8 @@
         <!ELEMENT rule (data+)>
         <!ATTLIST rule
                 table CDATA #REQUIRED
-                field CDATA #REQUIRED
+                column CDATA #REQUIRED
+                type CDATA #REQUIRED
         >
         <!ELEMENT data EMPTY>
         <!ATTLIST data
