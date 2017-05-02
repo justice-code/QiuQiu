@@ -1,5 +1,6 @@
 package org.eddy.xml.context;
 
+import org.apache.commons.lang3.StringUtils;
 import org.eddy.xml.UrlDtdPathResolver;
 import org.eddy.xml.data.DataNode;
 import org.slf4j.Logger;
@@ -52,6 +53,9 @@ public class XmlDataContext {
     }
 
     private DataNode parseNode(Node item) {
+        if (item.getNodeType() == Node.ELEMENT_NODE && StringUtils.equals(item.getNodeName(), DataNode.ELEMENT_NAME)) {
+
+        }
         return null;
     }
 }

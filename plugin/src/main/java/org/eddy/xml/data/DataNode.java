@@ -13,6 +13,8 @@ import org.eddy.xml.rule.Comparator;
 @ToString
 public class DataNode {
 
+    public static final String ELEMENT_NAME = "rule";
+
     /**
      * 库名
      */
