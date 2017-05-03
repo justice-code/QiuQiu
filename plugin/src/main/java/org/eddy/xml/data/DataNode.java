@@ -8,7 +8,7 @@ import org.eddy.xml.rule.Comparator;
  */
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "comparator")
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class DataNode {

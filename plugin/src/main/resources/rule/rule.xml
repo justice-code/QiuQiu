@@ -3,9 +3,9 @@
 <rules>
     <rule table="user" column="id" javaType="java.lang.Integer">
         <!-- schema：对应的schema table:对应的表 class：解析规则,如 id%4 > 1属于当前节点-->
-        <data schema="schema1" table="user" class=""/>
-        <data schema="schema2" table="user" class=""/>
-        <data schema="schema3" table="user" class=""/>
-        <data schema="schema4" table="user" class=""/>
+        <data schema="schema1" table="user" class="org.eddy.xml.rule.impl.DefaultComparator"/>
+        <data schema="schema2" table="user" class="org.eddy.xml.rule.impl.DefaultComparator"/>
+        <data schema="schema3" table="user" class="org.eddy.xml.rule.impl.DefaultComparator"/>
+        <data schema="schema4" table="user" class="org.eddy.xml.rule.impl.DefaultComparator"/>
     </rule>
 </rules>
