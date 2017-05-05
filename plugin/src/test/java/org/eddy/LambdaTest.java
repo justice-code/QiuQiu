@@ -9,8 +9,8 @@ public class LambdaTest {
 
     @Test
     public void test() {
-        Lambda lambda = () -> {
-            System.out.println(this.getClass());
+        LambdaInterface lambda = () -> {
+            System.out.println(this.getClass());//返回 class org.eddy.LambdaTest
             System.out.println("abc");
         };
         lambda.test();
