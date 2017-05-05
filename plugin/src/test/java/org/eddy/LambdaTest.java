@@ -11,6 +11,7 @@ public class LambdaTest {
     public void test() {
         LambdaInterface lambda = () -> {
             System.out.println(this.getClass());//返回 class org.eddy.LambdaTest
+            System.out.println(this);//返回 org.eddy.LambdaTest@5f8ed237
             System.out.println("abc");
         };
         lambda.test();
