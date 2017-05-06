@@ -7,7 +7,7 @@ import java.util.concurrent.*;
  */
 public class TTest {
 
-    private final static ExecutorService pool = Executors.newSingleThreadExecutor();
+    private final static ExecutorService pool = Executors.newFixedThreadPool(1);
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
@@ -27,6 +27,10 @@ public class TTest {
 //        future.cancel(true);
         System.out.println(future.get());
         System.out.println(pool);
+        ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) pool;
+        System.out.println(threadPoolExecutor.getCompletedTaskCount());
+        System.out.println(threadPoolExecutor.getTaskCount());
+        System.out.println(threadPoolExecutor.getActiveCount());
         pool.shutdown();
     }
 
