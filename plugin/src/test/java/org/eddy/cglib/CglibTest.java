@@ -7,10 +7,15 @@ import org.junit.Test;
  */
 public class CglibTest {
 
+    private CglibProxy cglibProxy = new CglibProxy();
+
     @Test
     public void test() {
-        CglibProxy cglibProxy = new CglibProxy();
         User user = (User) cglibProxy.createProxy(new User());
+        User user2 = (User) cglibProxy.createProxy(new User());
+        User user3 = (User) cglibProxy.createProxy(new User());
+        User user4 = (User) cglibProxy.createProxy(new User());
+        User user5 = (User) cglibProxy.createProxy(new User());
         System.out.println(user.getName());
         System.out.println(user.getAge());
         user.setAge(29);
