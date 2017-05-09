@@ -12,13 +12,11 @@ import java.lang.reflect.Method;
  */
 public class CglibProxy implements MethodInterceptor {
 
-    private Object obj;
 
     public Object createProxy(Object target) {
-        this.obj = target;
         Enhancer enhancer = new Enhancer();
         // 设置要代理的目标类，以扩展它的功能
-        enhancer.setSuperclass(this.obj.getClass());
+        enhancer.setSuperclass(target.getClass());
         // 设置单一回调对象，在回调中拦截对目标方法的调用
         enhancer.setCallback(this);
         //设置类装载器

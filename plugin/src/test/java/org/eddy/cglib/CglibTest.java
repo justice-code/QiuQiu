@@ -21,5 +21,6 @@ public class CglibTest {
         user.setAge(29);
         int age = user.setAndGetAge(29);
         System.out.println(age);
+        System.out.println(user.getAge());
     }
 }
