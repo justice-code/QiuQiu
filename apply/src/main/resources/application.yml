@@ -1,5 +1,7 @@
 spring:
   profiles:
     active: dev
+  aop:
+    auto: true
 mybatis:
   mapper-locations: classpath*:org/eddy/dao/mapper/*/*.xml
