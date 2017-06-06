@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    active: dev
+mybatis:
+  mapper-locations: classpath*:org/eddy/dao/mapper/*/*.xml

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.eddy.dao.mapper.test.UserMapper" >
+    <resultMap id="user" type="org.eddy.model.User">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="table">test.user</sql>
+
+    <select id="selectById" resultMap="user" parameterType="integer">
+        SELECT
+        *
+        FROM <include refid="table"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO <include refid="table"/>(name) VALUES (#{name})
+    </insert>
+</mapper>
