@@ -3,3 +3,4 @@ spring:
     url: jdbc:mysql://192.168.99.100:3306/test?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
