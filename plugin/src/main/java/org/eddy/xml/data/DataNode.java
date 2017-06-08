@@ -8,12 +8,10 @@ import org.eddy.xml.rule.Comparator;
  */
 @Getter
 @Setter
-@ToString(exclude = "comparator")
+@ToString
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class DataNode {
-
-    public static final String RULE_NODE_NAME = "rule";
 
     public static final String DATA_NODE_NAME = "data";
 
@@ -29,14 +27,4 @@ public class DataNode {
     @NonNull
     private String table;
 
-    /**
-     * 比较器
-     */
-    @NonNull
-    private Comparator comparator;
-
-    /**
-     * 关键列
-     */
-    private KeyColumn column;
 }

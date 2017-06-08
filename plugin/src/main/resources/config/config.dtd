@@ -6,10 +6,10 @@
                 table CDATA #REQUIRED
                 column CDATA #REQUIRED
                 javaType CDATA #REQUIRED
+                class  CDATA #REQUIRED
         >
         <!ELEMENT data EMPTY>
         <!ATTLIST data
                 schema  CDATA #REQUIRED
                 table  CDATA #REQUIRED
-                class  CDATA #REQUIRED
         >
