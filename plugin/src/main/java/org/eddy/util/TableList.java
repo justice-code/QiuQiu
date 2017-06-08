@@ -3,6 +3,7 @@ package org.eddy.util;
 import net.sf.jsqlparser.schema.Table;
 import org.apache.commons.lang3.StringUtils;
 import org.eddy.xml.context.XmlDataContext;
+import org.eddy.xml.data.RuleNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class TableList {
 
     private void replace(Table table) {
         XmlDataContext.getContext().getNodes().forEach(ruleNode -> {
-            if (! StringUtils.equalsIgnoreCase(table.getName(), ruleNode.sourceTable())) {
+            if (! checkTableName(table, ruleNode)) {
                 return;
             }
             Optional.ofNullable(ruleNode.getComparator().check(ruleNode)).ifPresent(node -> {
@@ -32,6 +33,16 @@ public class TableList {
                 table.setSchemaName(node.getSchema());
             });
         });
+    }
+
+    /**
+     * 表名对比方法
+     * @param table
+     * @param ruleNode
+     * @return true：对比通过，需要替换表名
+     */
+    private boolean checkTableName(Table table, RuleNode ruleNode) {
+        return StringUtils.equalsIgnoreCase(table.getName(), ruleNode.sourceTable());
     }
 
     public boolean contains(String tableName) {
