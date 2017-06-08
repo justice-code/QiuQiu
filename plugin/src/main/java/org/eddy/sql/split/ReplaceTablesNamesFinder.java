@@ -53,10 +53,9 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
      * @param delete
      * @return
      */
-    public List<String> getTableList(Delete delete, DataNode dataNode) {
+    public void getTableList(Delete delete, DataNode dataNode) {
         init(dataNode);
         delete.accept(this);
-        return tables;
     }
 
     /**
@@ -65,10 +64,9 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
      * @param insert
      * @return
      */
-    public List<String> getTableList(Insert insert, DataNode dataNode) {
+    public void getTableList(Insert insert, DataNode dataNode) {
         init(dataNode);
         insert.accept(this);
-        return tables;
     }
 
     /**
@@ -77,10 +75,9 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
      * @param replace
      * @return
      */
-    public List<String> getTableList(Replace replace, DataNode dataNode) {
+    public void getTableList(Replace replace, DataNode dataNode) {
         init(dataNode);
         replace.accept(this);
-        return tables;
     }
 
     /**
@@ -89,10 +86,9 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
      * @param select
      * @return
      */
-    public List<String> getTableList(Select select, DataNode dataNode) {
+    public void getTableList(Select select, DataNode dataNode) {
         init(dataNode);
         select.accept(this);
-        return tables;
     }
 
     @Override
@@ -111,22 +107,19 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
      * @param update
      * @return
      */
-    public List<String> getTableList(Update update, DataNode dataNode) {
+    public void getTableList(Update update, DataNode dataNode) {
         init(dataNode);
         update.accept(this);
-        return tables;
     }
 
-    public List<String> getTableList(CreateTable create, DataNode dataNode) {
+    public void getTableList(CreateTable create, DataNode dataNode) {
         init(dataNode);
         create.accept(this);
-        return tables;
     }
 
-    public List<String> getTableList(Expression expr, DataNode dataNode) {
+    public void getTableList(Expression expr, DataNode dataNode) {
         init(dataNode);
         expr.accept(this);
-        return tables;
     }
 
     @Override
@@ -637,7 +630,6 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
             table.setName(dataNode.getTable());
         }
         tables.add(table.getFullyQualifiedName());
-
     }
 
     private void replaceTableNamesWithShort(Table table) {
@@ -648,5 +640,4 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
         tables.add(table.getName());
 
     }
-
 }

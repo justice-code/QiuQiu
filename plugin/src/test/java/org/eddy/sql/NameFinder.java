@@ -53,7 +53,7 @@ public class NameFinder {
 
         ReplaceTablesNamesFinder tablesNamesFinder = new ReplaceTablesNamesFinder();
         Statement statement = CCJSqlParserUtil.parse(sql);
-        List<String> tables = tablesNamesFinder.getTableList((Select) statement, XmlDataContext.getContext().getNodes().get(1).getDataNodes().get(0));
+        tablesNamesFinder.getTableList((Select) statement, XmlDataContext.getContext().getNodes().get(1).getDataNodes().get(0));
         System.out.println(statement.toString());
     }
 }
