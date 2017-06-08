@@ -427,10 +427,10 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
     /**
      * Initializes table names collector.
      */
-    protected void init(DataNode dataNode) {
-        otherItemNames = new ArrayList<String>();
-        tables = new ArrayList<String>();
-        dataNode = dataNode;
+    private void init(DataNode dataNode) {
+        this.otherItemNames = new ArrayList<>();
+        this.tables = new ArrayList<>();
+        this.dataNode = dataNode;
     }
 
     @Override
