@@ -27,6 +27,7 @@ import net.sf.jsqlparser.statement.drop.Drop;
 import net.sf.jsqlparser.statement.execute.Execute;
 import net.sf.jsqlparser.statement.merge.Merge;
 import net.sf.jsqlparser.statement.truncate.Truncate;
+import org.apache.commons.lang3.StringUtils;
 import org.eddy.xml.context.XmlDataContext;
 import org.eddy.xml.data.DataNode;
 
@@ -631,7 +632,7 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
     }
 
     private void replaceTableNames(Table table) {
-        if (null != dataNode) {
+        if (null != dataNode && StringUtils.equals(dataNode.getRuleNode().getKeyColumn().getTable(), table.getName())) {
             table.setSchemaName(dataNode.getSchema());
             table.setName(dataNode.getTable());
         }
@@ -640,7 +641,7 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
     }
 
     private void replaceTableNamesWithShort(Table table) {
-        if (null != dataNode) {
+        if (null != dataNode && StringUtils.equals(dataNode.getRuleNode().getKeyColumn().getTable(), table.getName())) {
             table.setSchemaName(dataNode.getSchema());
             table.setName(dataNode.getTable());
         }

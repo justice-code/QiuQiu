@@ -92,7 +92,10 @@ public class XmlDataContext {
         NodeList ruleChildren = item.getChildNodes();
         for (int i = 0; i < ruleChildren.getLength(); i++) {
 
-            Optional.ofNullable(parseData(ruleChildren.item(i))).ifPresent(dataNode -> node.add(dataNode));
+            Optional.ofNullable(parseData(ruleChildren.item(i))).ifPresent(dataNode -> {
+                node.add(dataNode);
+                dataNode.setRuleNode(node);
+            });
 
         }
 

@@ -27,4 +27,6 @@ public class DataNode {
     @NonNull
     private String table;
 
+    private RuleNode ruleNode;
+
 }

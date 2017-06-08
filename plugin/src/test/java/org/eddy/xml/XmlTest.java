@@ -2,6 +2,7 @@ package org.eddy.xml;
 
 import org.eddy.xml.context.XmlDataContext;
 import org.eddy.xml.data.DataNode;
+import org.eddy.xml.data.RuleNode;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,8 +15,9 @@ public class XmlTest {
 
     @Test
     public void test() {
-        List<DataNode> dataNodes = XmlDataContext.getContext().getNodes();
-        Assert.assertEquals(4, dataNodes.size());
+        List<RuleNode> dataNodes = XmlDataContext.getContext().getNodes();
+        Assert.assertEquals(1, dataNodes.size());
+        Assert.assertEquals(4, dataNodes.get(0).getDataNodes().size());
     }
 
 }

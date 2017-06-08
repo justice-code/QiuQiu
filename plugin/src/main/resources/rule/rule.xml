@@ -8,4 +8,7 @@
         <data schema="schema3" table="user" />
         <data schema="schema4" table="user" />
     </rule>
+    <rule table="sale_order" column="order_id" javaType="java.lang.String" class="org.eddy.xml.rule.impl.DefaultComparator">
+        <data schema="test" table="sale_order"/>
+    </rule>
 </rules>
