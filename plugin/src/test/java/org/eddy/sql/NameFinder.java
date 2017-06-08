@@ -5,7 +5,7 @@ import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.util.TablesNamesFinder;
-import org.eddy.sql.split.MineTablesNamesFinder;
+import org.eddy.sql.split.ReplaceTablesNamesFinder;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -50,7 +50,7 @@ public class NameFinder {
                 "            left join fantasia.`storage_warehouse` sw on t.swname = sw.name\n" +
                 "            left join fantasia.`company` c on replace(json_extract(sw.others,'$.company'),'\"','') = c.id where c.`inland` = '1') as a";
 
-        MineTablesNamesFinder tablesNamesFinder = new MineTablesNamesFinder();
+        ReplaceTablesNamesFinder tablesNamesFinder = new ReplaceTablesNamesFinder();
         Statement statement = CCJSqlParserUtil.parse(sql);
         List<String> tables = tablesNamesFinder.getTableList((Select) statement);
         Assert.assertTrue(tables.size() == 6);
