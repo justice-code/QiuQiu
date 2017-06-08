@@ -27,9 +27,7 @@ import net.sf.jsqlparser.statement.drop.Drop;
 import net.sf.jsqlparser.statement.execute.Execute;
 import net.sf.jsqlparser.statement.merge.Merge;
 import net.sf.jsqlparser.statement.truncate.Truncate;
-import org.apache.commons.lang3.StringUtils;
-import org.eddy.xml.context.XmlDataContext;
-import org.eddy.xml.data.DataNode;
+import org.eddy.util.TableList;
 
 /**
  * Find all used tables within an select statement.
@@ -37,7 +35,7 @@ import org.eddy.xml.data.DataNode;
 public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor, ExpressionVisitor, ItemsListVisitor, SelectItemVisitor, StatementVisitor {
 
     private static final String NOT_SUPPORTED_YET = "Not supported yet.";
-    private List<String> tables;
+    private TableList tables;
     /**
      * There are special names, that are not table names but are parsed as
      * tables. These names are collected here and are not included in the tables
@@ -45,17 +43,16 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
      */
     private List<String> otherItemNames;
 
-    private DataNode dataNode;
-
     /**
      * Main entry for this Tool class. A list of found tables is returned.
      *
      * @param delete
      * @return
      */
-    public void getTableList(Delete delete, DataNode dataNode) {
-        init(dataNode);
+    public List<String> getTableList(Delete delete) {
+        init();
         delete.accept(this);
+        return tables.result();
     }
 
     /**
@@ -64,9 +61,10 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
      * @param insert
      * @return
      */
-    public void getTableList(Insert insert, DataNode dataNode) {
-        init(dataNode);
+    public List<String> getTableList(Insert insert) {
+        init();
         insert.accept(this);
+        return tables.result();
     }
 
     /**
@@ -75,9 +73,10 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
      * @param replace
      * @return
      */
-    public void getTableList(Replace replace, DataNode dataNode) {
-        init(dataNode);
+    public List<String> getTableList(Replace replace) {
+        init();
         replace.accept(this);
+        return tables.result();
     }
 
     /**
@@ -86,9 +85,10 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
      * @param select
      * @return
      */
-    public void getTableList(Select select, DataNode dataNode) {
-        init(dataNode);
+    public List<String> getTableList(Select select) {
+        init();
         select.accept(this);
+        return tables.result();
     }
 
     @Override
@@ -107,19 +107,22 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
      * @param update
      * @return
      */
-    public void getTableList(Update update, DataNode dataNode) {
-        init(dataNode);
+    public List<String> getTableList(Update update) {
+        init();
         update.accept(this);
+        return tables.result();
     }
 
-    public void getTableList(CreateTable create, DataNode dataNode) {
-        init(dataNode);
+    public List<String> getTableList(CreateTable create) {
+        init();
         create.accept(this);
+        return tables.result();
     }
 
-    public void getTableList(Expression expr, DataNode dataNode) {
-        init(dataNode);
+    public List<String> getTableList(Expression expr) {
+        init();
         expr.accept(this);
+        return tables.result();
     }
 
     @Override
@@ -158,7 +161,7 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
         String tableWholeName = tableName.getFullyQualifiedName();
         if (!otherItemNames.contains(tableWholeName.toLowerCase())
                 && !tables.contains(tableWholeName)) {
-            replaceTableNames(tableName);
+            tables.add(tableName, (Table t) -> t.getFullyQualifiedName());
         }
     }
 
@@ -420,10 +423,9 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
     /**
      * Initializes table names collector.
      */
-    private void init(DataNode dataNode) {
-        this.otherItemNames = new ArrayList<>();
-        this.tables = new ArrayList<>();
-        this.dataNode = dataNode;
+    protected void init() {
+        otherItemNames = new ArrayList<String>();
+        tables = new TableList();
     }
 
     @Override
@@ -495,7 +497,7 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
 
     @Override
     public void visit(Delete delete) {
-        replaceTableNamesWithShort(delete.getTable());
+        tables.add(delete.getTable(), table -> table.getName());
         if (delete.getWhere() != null) {
             delete.getWhere().accept(this);
         }
@@ -504,7 +506,7 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
     @Override
     public void visit(Update update) {
         for (Table table : update.getTables()) {
-            replaceTableNamesWithShort(table);
+            tables.add(table, table1 -> table.getName());
         }
         if (update.getExpressions() != null) {
             for (Expression expression : update.getExpressions()) {
@@ -529,7 +531,7 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
 
     @Override
     public void visit(Insert insert) {
-        replaceTableNamesWithShort(insert.getTable());
+        tables.add(insert.getTable(), table -> table.getName());
         if (insert.getItemsList() != null) {
             insert.getItemsList().accept(this);
         }
@@ -540,7 +542,7 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
 
     @Override
     public void visit(Replace replace) {
-        replaceTableNamesWithShort(replace.getTable());
+        tables.add(replace.getTable(), table -> table.getName());
         if (replace.getExpressions() != null) {
             for (Expression expression : replace.getExpressions()) {
                 expression.accept(this);
@@ -568,7 +570,7 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
 
     @Override
     public void visit(CreateTable create) {
-        replaceTableNames(create.getTable());
+        tables.add(create.getTable(), table -> table.getFullyQualifiedName());
         if (create.getSelect() != null) {
             create.getSelect().accept(this);
         }
@@ -624,20 +626,4 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
     public void visit(TableFunction valuesList) {
     }
 
-    private void replaceTableNames(Table table) {
-        if (null != dataNode && StringUtils.equals(dataNode.getRuleNode().getKeyColumn().getTable(), table.getName())) {
-            table.setSchemaName(dataNode.getSchema());
-            table.setName(dataNode.getTable());
-        }
-        tables.add(table.getFullyQualifiedName());
-    }
-
-    private void replaceTableNamesWithShort(Table table) {
-        if (null != dataNode && StringUtils.equals(dataNode.getRuleNode().getKeyColumn().getTable(), table.getName())) {
-            table.setSchemaName(dataNode.getSchema());
-            table.setName(dataNode.getTable());
-        }
-        tables.add(table.getName());
-
-    }
 }

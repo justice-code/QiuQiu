@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "dataNodes")
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class RuleNode {
@@ -28,6 +28,10 @@ public class RuleNode {
      */
     @NonNull
     private Comparator comparator;
+
+    public String sourceTable() {
+        return keyColumn.getTable();
+    }
 
     public void add(DataNode dataNode) {
         dataNodes.add(dataNode);
