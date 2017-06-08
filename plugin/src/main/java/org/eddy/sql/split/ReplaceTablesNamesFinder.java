@@ -424,8 +424,8 @@ public class ReplaceTablesNamesFinder implements SelectVisitor, FromItemVisitor,
      * Initializes table names collector.
      */
     protected void init() {
-        otherItemNames = new ArrayList<String>();
-        tables = new TableList();
+        this.otherItemNames = new ArrayList<String>();
+        this.tables = new TableList();
     }
 
     @Override
