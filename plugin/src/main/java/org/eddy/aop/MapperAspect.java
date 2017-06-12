@@ -4,7 +4,12 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.eddy.sql.config.KeyParam;
+import org.eddy.sql.config.RequestHolder;
 import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
 
 /**
  * Created by eddy on 2017/6/6.
@@ -13,12 +18,28 @@ import org.springframework.stereotype.Component;
 @Component
 public class MapperAspect {
 
-    @Pointcut("execution(* org.eddy.dao.mapper..*(..)) && (@annotation(org.eddy.sql.config.KeyParam))")
+    @Pointcut("execution(* org.eddy.dao.mapper..*(..))")
     public void mapperCheck() {}
 
     @Around("mapperCheck()")
     public Object check(ProceedingJoinPoint point) throws Throwable {
-        System.out.println("into");
-        return point.proceed();
+        if (! (point.getSignature() instanceof MethodSignature)) {
+            return point.proceed();
+        }
+
+        MethodSignature methodSignature = (MethodSignature) point.getSignature();
+        Method method = methodSignature.getMethod();
+        if (! method.isAnnotationPresent(KeyParam.class)) {
+            return point.proceed();
+        }
+
+        KeyParam keyParam = method.getAnnotation(KeyParam.class);
+        String ognl = keyParam.value();
+        RequestHolder.initRequestHolder(ognl);
+
+        Object result = point.proceed();
+
+        RequestHolder.resetRequest();
+        return result;
     }
 }

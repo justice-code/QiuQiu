@@ -13,8 +13,8 @@ public class RequestHolder {
         requestHolder.remove();
     }
 
-    public static void setRequestAttributes(Object param, String ognl) {
-        requestHolder.set(new SplitRequest(param, ognl));
+    public static void initRequestHolder(String ognl) {
+        requestHolder.set(new SplitRequest(ognl));
     }
 
     public static SplitRequest getRequest() {

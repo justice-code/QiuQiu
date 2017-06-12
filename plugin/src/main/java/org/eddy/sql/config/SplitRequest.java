@@ -1,20 +1,14 @@
 package org.eddy.sql.config;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * Created by eddy on 2017/6/12.
  */
 @Getter
 @Setter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SplitRequest {
-
-    @NonNull
-    private Object param;
 
     @NonNull
     private String ognl;
