@@ -28,8 +28,6 @@ public class ApplicationStart {
     @Bean
     public DataSource definitionDataSource() throws Exception {
         StatFilter statFilter = new StatFilter();
-        statFilter.setSlowSqlMillis(100);
-        statFilter.setLogSlowSql(true);
 
         Properties config = new Properties();
         config.setProperty("url", dataSourceProperties.getUrl());
