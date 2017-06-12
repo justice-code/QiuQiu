@@ -12,9 +12,9 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    @KeyParam("id")
+    @KeyParam("#root")
     List<User> selectById(Integer id);
 
-    @KeyParam("id")
+    @KeyParam("#root")
     int insert(String name);
 }

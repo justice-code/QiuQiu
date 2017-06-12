@@ -12,4 +12,6 @@ public class SplitRequest {
 
     @NonNull
     private String ognl;
+
+    private Object param;
 }
