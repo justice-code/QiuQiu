@@ -46,4 +46,18 @@ public class UserTest {
     public void test3() {
         userMapper.insert("today");
     }
+
+    @Test
+    @Transactional
+    public void test4() {
+        User user = new User(1, "test2");
+
+        userMapper.update(user);
+    }
+
+    @Test
+    @Transactional
+    public void test5() {
+        userMapper.delete(1);
+    }
 }

@@ -17,4 +17,10 @@ public interface UserMapper {
 
     @KeyParam("#root")
     int insert(String name);
+
+    @KeyParam("id")
+    int update(User user);
+
+    @KeyParam("#root")
+    int delete(Integer id);
 }

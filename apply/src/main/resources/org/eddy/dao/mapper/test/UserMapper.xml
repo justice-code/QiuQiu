@@ -7,6 +7,12 @@
     </resultMap>
 
     <sql id="table">test.user</sql>
+    <update id="update">
+        update <include refid="table"/> SET name = #{name} where id = #{id}
+    </update>
+    <delete id="delete">
+        DELETE FROM <include refid="table"/>  WHERE id = #{id}
+    </delete>
 
     <select id="selectById" resultMap="user" parameterType="integer">
         SELECT
