@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MapperAspect {
 
-    @Pointcut("execution(* org.eddy.dao.mapper..*(..)) && ! (@annotation(org.eddy.aop.annotation.Ignore))")
+    @Pointcut("execution(* org.eddy.dao.mapper..*(..)) && (@annotation(org.eddy.sql.config.KeyParam))")
     public void mapperCheck() {}
 
     @Around("mapperCheck()")
