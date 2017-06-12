@@ -20,6 +20,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.eddy.sql.config.RequestHolder;
 import org.eddy.sql.config.SplitRequest;
 import org.eddy.sql.split.ReplaceTablesNamesFinder;
+import org.eddy.util.FieldUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,12 +56,15 @@ public class SplitTableInterceptor implements Interceptor {
             Statement statement = CCJSqlParserUtil.parse(boundSql.getSql());
             String sql = parseSql(statement);
 
-            Ognl.setValue("sql", boundSql, sql);
+//            Ognl.setValue("sql", boundSql, sql);
+            FieldUtil.setValue("sql", BoundSql.class, boundSql, sql);
 
         } catch (OgnlException ognl) {
             logger.error("ognl exception", ognl);
         } catch (JSQLParserException e) {
             logger.error("jSqlParser exception", e);
+        } catch (Exception e1) {
+            logger.error("error happend", e1);
         }
     }
 
