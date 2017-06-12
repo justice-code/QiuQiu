@@ -8,5 +8,5 @@ import org.eddy.xml.data.RuleNode;
  */
 public interface Comparator {
 
-    DataNode check(RuleNode ruleNode);
+    DataNode check(RuleNode ruleNode, Object param);
 }

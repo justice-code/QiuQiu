@@ -14,7 +14,7 @@ import java.util.Optional;
 public class DefaultComparator implements Comparator {
 
     @Override
-    public DataNode check(RuleNode ruleNode) {
+    public DataNode check(RuleNode ruleNode, Object param) {
         return Optional.ofNullable(ruleNode.getDataNodes()).map(nodes -> {
             if (CollectionUtils.isNotEmpty(nodes)) {
                 return nodes.get(0);

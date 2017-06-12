@@ -39,6 +39,5 @@ public class UserTest {
         Assert.assertEquals(1, users.size());
         Assert.assertEquals(new Integer(1), users.get(0).getId());
         System.out.println(2);
-        test();
     }
 }
