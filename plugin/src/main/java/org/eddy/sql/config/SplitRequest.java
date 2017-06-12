@@ -1,6 +1,8 @@
 package org.eddy.sql.config;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 /**
@@ -8,9 +10,12 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@AllArgsConstructor
 public class SplitRequest {
 
+    @NonNull
     private Object param;
 
+    @NonNull
     private String ognl;
 }
