@@ -25,9 +25,23 @@ public class OgnlTest {
     @Test
     public void test2() throws OgnlException {
         List<RuleNode> dataNodes = XmlDataContext.getContext().getNodes();
+        Map<String, RuleNode> map = new HashMap<>();
+        map.put("key1", dataNodes.get(0));
+        map.put("key2", dataNodes.get(1));
+        Object value = Ognl.getValue("key1.keyColumn.table", map);
+        System.out.println(value);
+
+        Object value2 = Ognl.getValue("key2.keyColumn.table", map);
+        System.out.println(value2);
+    }
+
+    @Test
+    public void test3() throws OgnlException {
+        List<RuleNode> dataNodes = XmlDataContext.getContext().getNodes();
         Map<String, List<RuleNode>> map = new HashMap<>();
         map.put("key", dataNodes);
         Object value = Ognl.getValue("key[1].keyColumn.table", map);
         System.out.println(value);
+
     }
 }
