@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- appender -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+
+    <!-- profile -->
+
+    <springProfile name="dev">
+        <logger name="org.eddy" level="DEBUG" additivity="false">
+            <appender-ref ref="STDOUT"/>
+        </logger>
+        <logger name="org.springframework.web" level="DEBUG" additivity="false">
+            <appender-ref ref="STDOUT"/>
+        </logger>
+        <logger name="druid.sql.Statement" level="debug" additivity="false">
+            <appender-ref ref="STDOUT"/>
+        </logger>
+        <logger name="druid.sql.ResultSet" level="debug" additivity="false">
+            <appender-ref ref="STDOUT"/>
+        </logger>
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+
+</configuration>

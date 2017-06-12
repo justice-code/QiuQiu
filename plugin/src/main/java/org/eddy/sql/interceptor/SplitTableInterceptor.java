@@ -12,6 +12,7 @@ import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.mapping.SqlSource;
 import org.apache.ibatis.ognl.Ognl;
 import org.apache.ibatis.ognl.OgnlException;
 import org.apache.ibatis.plugin.*;
@@ -56,8 +57,9 @@ public class SplitTableInterceptor implements Interceptor {
             Statement statement = CCJSqlParserUtil.parse(boundSql.getSql());
             String sql = parseSql(statement);
 
-//            Ognl.setValue("sql", boundSql, sql);
             FieldUtil.setValue("sql", BoundSql.class, boundSql, sql);
+            MappedStatement mappedStatement = copyMappedStatement((MappedStatement)invocation.getArgs()[0], boundSql);
+            invocation.getArgs()[0] = mappedStatement;
 
         } catch (OgnlException ognl) {
             logger.error("ognl exception", ognl);
@@ -87,6 +89,24 @@ public class SplitTableInterceptor implements Interceptor {
 
         return statement.toString();
 
+    }
+
+    private MappedStatement copyMappedStatement(MappedStatement ms, BoundSql boundSql) throws NoSuchFieldException, IllegalAccessException {
+        return copyMappedStatement(ms, new BoundSqlSource(boundSql));
+    }
+
+    private MappedStatement copyMappedStatement(MappedStatement ms, SqlSource sqlSource) throws NoSuchFieldException, IllegalAccessException {
+        MappedStatement nms;
+        nms = new MappedStatement.Builder(ms.getConfiguration(), ms.getId(), sqlSource,
+                ms.getSqlCommandType()).cache(ms.getCache()).databaseId(ms.getDatabaseId())
+                .fetchSize(ms.getFetchSize()).flushCacheRequired(true).keyGenerator(ms.getKeyGenerator())
+                .parameterMap(ms.getParameterMap()).resource(ms.getResource())
+                .resultMaps(ms.getResultMaps()).resultSetType(ms.getResultSetType())
+                .statementType(ms.getStatementType()).timeout(ms.getTimeout()).useCache(ms.isUseCache())
+                .build();
+        FieldUtil.setValue("keyColumns", nms.getClass(), nms, ms.getKeyColumns());
+        FieldUtil.setValue("keyProperties", nms.getClass(), nms, ms.getKeyProperties());
+        return nms;
     }
 
     @Override
