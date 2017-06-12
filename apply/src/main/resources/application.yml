@@ -4,4 +4,5 @@ spring:
   aop:
     auto: true
 mybatis:
-  mapper-locations: classpath*:org/eddy/dao/mapper/*/*.xml
+  mapper-locations: classpath:org/eddy/dao/mapper/*/*.xml
+  configLocation: classpath:mybatis-conf.xml
