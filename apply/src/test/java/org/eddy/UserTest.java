@@ -40,4 +40,10 @@ public class UserTest {
         Assert.assertEquals(new Integer(1), users.get(0).getId());
         System.out.println(2);
     }
+
+    @Test
+    @Transactional
+    public void test3() {
+        userMapper.insert("today");
+    }
 }
