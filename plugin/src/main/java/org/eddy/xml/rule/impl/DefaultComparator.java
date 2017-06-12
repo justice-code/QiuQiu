@@ -6,6 +6,7 @@ import org.eddy.xml.data.RuleNode;
 import org.eddy.xml.rule.Comparator;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Optional;
 public class DefaultComparator implements Comparator {
 
     @Override
-    public DataNode check(RuleNode ruleNode, Object param) {
+    public DataNode check(RuleNode ruleNode) {
         return Optional.ofNullable(ruleNode.getDataNodes()).map(nodes -> {
             if (CollectionUtils.isNotEmpty(nodes)) {
                 return nodes.get(0);
