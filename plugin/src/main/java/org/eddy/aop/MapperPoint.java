@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class MapperPoint {
 
-
     @Pointcut("execution(* org.eddy.dao.mapper..*(..))")
     public void mapperCheck() {}
 
