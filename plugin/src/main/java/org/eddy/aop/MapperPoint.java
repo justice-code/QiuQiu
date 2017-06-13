@@ -2,6 +2,7 @@ package org.eddy.aop;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
+@ConditionalOnMissingBean(MapperPoint.class)
 public class MapperPoint {
 
     @Pointcut("execution(* org.eddy.dao.mapper..*(..))")
