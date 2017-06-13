@@ -10,9 +10,10 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
-@ConditionalOnMissingBean(MapperPoint.class)
-public class MapperPoint {
+@ConditionalOnMissingBean(Point.class)
+public class MapperPoint implements Point{
 
+    @Override
     @Pointcut("execution(* org.eddy.dao.mapper..*(..))")
     public void mapperCheck() {}
 
