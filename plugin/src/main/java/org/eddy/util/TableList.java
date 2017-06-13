@@ -9,11 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 /**
  * Created by eddy on 2017/6/8.
  */
 public class TableList {
+
+    private static Pattern pattern = Pattern.compile("'|\"|`");
 
     private List<String> tables = new ArrayList<>();
 
@@ -42,7 +45,8 @@ public class TableList {
      * @return true：对比通过，需要替换表名
      */
     private boolean checkTableName(Table table, RuleNode ruleNode) {
-        return StringUtils.equalsIgnoreCase(table.getName(), ruleNode.sourceTable());
+        String queryTable = pattern.matcher(table.getName()).replaceAll("");
+        return StringUtils.equalsIgnoreCase(queryTable, ruleNode.sourceTable());
     }
 
     public boolean contains(String tableName) {
