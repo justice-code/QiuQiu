@@ -47,7 +47,7 @@ public abstract class MapperAspect {
     public abstract void mapperCheckPoint();
 
     /**
-     * 校验是否需要进行sql重写
+     * 自定义校验是否需要进行sql重写
      * @param point
      * @return true：需要进行sql重写
      */
