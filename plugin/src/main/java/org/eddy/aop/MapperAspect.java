@@ -13,18 +13,6 @@ import java.lang.reflect.Method;
  */
 public abstract class MapperAspect {
 
-    /**
-     * 切入点
-     */
-    public abstract void mapperCheckPoint();
-
-    /**
-     * 校验是否需要进行sql重写
-     * @param point
-     * @return true：需要进行sql重写
-     */
-    protected abstract boolean check(ProceedingJoinPoint point);
-
     @Around("mapperCheckPoint()")
     private Object around(ProceedingJoinPoint point) throws Throwable {
 
@@ -50,4 +38,19 @@ public abstract class MapperAspect {
         RequestHolder.resetRequest();
         return result;
     }
+
+    //************************抽象方法**************************
+
+    /**
+     * 切入点
+     */
+    public abstract void mapperCheckPoint();
+
+    /**
+     * 校验是否需要进行sql重写
+     * @param point
+     * @return true：需要进行sql重写
+     */
+    protected abstract boolean check(ProceedingJoinPoint point);
+
 }
