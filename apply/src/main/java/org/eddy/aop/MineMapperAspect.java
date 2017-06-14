@@ -12,8 +12,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class MineMapperAspect extends MapperAspect {
 
+
+    /**
+     * 切入点
+     */
+    @Override
     @Pointcut("execution(* org.eddy.dao.mapper..*(..))")
-    public void mapperCheck() {}
+    public void mapperCheckPoint() {
+
+    }
 
     /**
      * 校验是否需要进行sql重写

@@ -14,13 +14,18 @@ import java.lang.reflect.Method;
 public abstract class MapperAspect {
 
     /**
+     * 切入点
+     */
+    public abstract void mapperCheckPoint();
+
+    /**
      * 校验是否需要进行sql重写
      * @param point
      * @return true：需要进行sql重写
      */
     protected abstract boolean check(ProceedingJoinPoint point);
 
-    @Around("mapperCheck()")
+    @Around("mapperCheckPoint()")
     private Object around(ProceedingJoinPoint point) throws Throwable {
 
         if(! check(point)) {
