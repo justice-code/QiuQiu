@@ -1,14 +1,27 @@
 package org.eddy.xml.rule;
 
+import groovy.lang.Binding;
+import groovy.lang.GroovyShell;
 import org.eddy.xml.data.DataNode;
 import org.eddy.xml.data.RuleNode;
 
-import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by eddy on 2017/4/28.
  */
-public interface Comparator {
+public abstract class Comparator {
 
-    DataNode check(RuleNode ruleNode);
+    public abstract DataNode check(RuleNode ruleNode);
+
+    public boolean script(Object param, String script) {
+        Objects.requireNonNull(script);
+
+        Binding binding = new Binding();
+        GroovyShell shell = new GroovyShell(binding);
+        shell.setVariable("param", param);
+        Object returnValue = shell.evaluate(script);
+
+        return (boolean) returnValue;
+    }
 }

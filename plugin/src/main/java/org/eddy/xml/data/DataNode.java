@@ -22,10 +22,16 @@ public class DataNode {
     private String schema;
 
     /**
-     * 表明
+     * 表名
      */
     @NonNull
     private String table;
+
+    /**
+     * 对比脚本
+     */
+    @NonNull
+    private String script;
 
     private RuleNode ruleNode;
 

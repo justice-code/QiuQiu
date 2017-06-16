@@ -111,8 +111,8 @@ public class XmlDataContext {
         Element dataElement = (Element) item;
         String schema = dataElement.getAttribute("schema");
         String table = dataElement.getAttribute("table");
+        String script = dataElement.getAttribute("script");
 
-
-        return new DataNode(schema, table);
+        return new DataNode(schema, table, script);
     }
 }

@@ -12,4 +12,5 @@
         <!ATTLIST data
                 schema  CDATA #REQUIRED
                 table  CDATA #REQUIRED
+                script CDATA #REQUIRED
         >
