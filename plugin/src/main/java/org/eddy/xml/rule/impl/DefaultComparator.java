@@ -1,6 +1,6 @@
 package org.eddy.xml.rule.impl;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.eddy.sql.config.RequestHolder;
 import org.eddy.xml.data.DataNode;
 import org.eddy.xml.data.RuleNode;
 import org.eddy.xml.rule.Comparator;
@@ -14,12 +14,11 @@ public class DefaultComparator extends Comparator {
 
     @Override
     public DataNode check(RuleNode ruleNode) {
+        Object param = RequestHolder.getRequest().getParam();
         return Optional.ofNullable(ruleNode.getDataNodes()).map(nodes -> {
-            if (CollectionUtils.isNotEmpty(nodes)) {
-                return nodes.get(0);
-            } else {
-                return null;
-            }
+            return nodes.stream().filter(node -> {
+                return Optional.ofNullable(param).map(p -> super.script(p, node.getScript())).orElse(false);
+            }).findFirst().orElse(null);
         }).orElse(null);
     }
 }
