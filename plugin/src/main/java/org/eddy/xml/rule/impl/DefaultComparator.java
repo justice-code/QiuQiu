@@ -5,14 +5,12 @@ import org.eddy.xml.data.DataNode;
 import org.eddy.xml.data.RuleNode;
 import org.eddy.xml.rule.Comparator;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 /**
  * Created by eddy on 2017/5/3.
  */
-public class DefaultComparator implements Comparator {
+public class DefaultComparator extends Comparator {
 
     @Override
     public DataNode check(RuleNode ruleNode) {

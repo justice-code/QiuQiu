@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE rules SYSTEM "../config/config.dtd">
 <rules>
-    <rule table="user" column="id" javaType="java.lang.Integer" class="org.eddy.xml.rule.impl.DefaultComparator">
-        <!-- schema：对应的schema table:对应的表 class：解析规则,如 id%4 > 1属于当前节点-->
-        <data schema="schema1" table="user" script=""/>
-        <data schema="schema2" table="user" script=""/>
-        <data schema="schema3" table="user" script=""/>
-        <data schema="schema4" table="user" script=""/>
+    <rule table="user" column="id" javaType="java.lang.Integer" class="org.eddy.xml.rule.impl.UserComparator">
+        <data schema="schema1" table="user" script="1 == param"/>
+        <data schema="schema2" table="user" script="2 == param"/>
+        <data schema="schema3" table="user" script="3 == param"/>
+        <data schema="schema4" table="user" script="4 == param"/>
     </rule>
     <rule table="sale_order" column="order_id" javaType="java.lang.String" class="org.eddy.xml.rule.impl.DefaultComparator">
-        <data schema="test" table="sale_order" script=""/>
+        <data schema="test" table="sale_order" script="'order_id'.equals(param)"/>
     </rule>
 </rules>
