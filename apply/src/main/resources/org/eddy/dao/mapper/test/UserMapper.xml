@@ -21,6 +21,10 @@
         where id = #{id}
     </select>
 
+    <select id="selectUsers" resultMap="user">
+        SELECT * FROM <include refid="table"/> WHERE id > #{begin} and id <![CDATA[ < ]]> #{end}
+    </select>
+
     <insert id="insert">
         INSERT INTO <include refid="table"/>(name) VALUES (#{name})
     </insert>

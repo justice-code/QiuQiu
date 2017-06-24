@@ -1,6 +1,7 @@
 package org.eddy.dao.mapper.test;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.eddy.model.User;
 import org.eddy.sql.config.KeyParam;
 
@@ -23,4 +24,7 @@ public interface UserMapper {
 
     @KeyParam("#root")
     int delete(Integer id);
+
+    @KeyParam({"begin", "end"})
+    List<User> selectUsers(@Param("begin") Integer begin, @Param("end") Integer end);
 }
