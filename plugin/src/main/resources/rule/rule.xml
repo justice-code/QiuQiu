@@ -2,13 +2,13 @@
 <!DOCTYPE rules SYSTEM "../config/config.dtd">
 <rules>
     <rule table="user" column="id" javaType="java.lang.Integer" class="org.eddy.xml.rule.impl.UserComparator">
-        <data schema="schema1" table="user" script="1 == param[0]"/>
-        <data schema="schema2" table="user" script="2 == param[0]"/>
-        <data schema="schema3" table="user" script="3 == param[0]"/>
-        <data schema="schema4" table="user" script="4 == param[0]"/>
-        <data schema="schema4" table="user" script="param[0] > 1 &amp;&amp; param[1] &lt; 3"/>
+        <data schema="schema1" table="user" script="! 'UserMapper.selectUsers'.equals(mapper) &amp;&amp; 1 == params[0]"/>
+        <data schema="schema2" table="user" script="! 'UserMapper.selectUsers'.equals(mapper) &amp;&amp; 2 == params[0]"/>
+        <data schema="schema3" table="user" script="! 'UserMapper.selectUsers'.equals(mapper) &amp;&amp; 3 == params[0]"/>
+        <data schema="schema4" table="user" script="! 'UserMapper.selectUsers'.equals(mapper) &amp;&amp; 4 == params[0]"/>
+        <data schema="schema5" table="user" script="params[0] == 1 &amp;&amp; params[1] == 3"/>
     </rule>
     <rule table="sale_order" column="order_id" javaType="java.lang.String" class="org.eddy.xml.rule.impl.DefaultComparator">
-        <data schema="test" table="sale_order" script="'order_id'.equals(param[0])"/>
+        <data schema="test" table="sale_order" script="'order_id'.equals(params[0])"/>
     </rule>
 </rules>

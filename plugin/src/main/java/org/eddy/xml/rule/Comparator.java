@@ -14,12 +14,13 @@ public abstract class Comparator {
 
     public abstract DataNode check(RuleNode ruleNode);
 
-    public boolean script(Object[] param, String script) {
+    public boolean script(String mapper, Object[] param, String script) {
         Objects.requireNonNull(script);
 
         Binding binding = new Binding();
         GroovyShell shell = new GroovyShell(binding);
-        shell.setVariable("param", param);
+        shell.setVariable("mapper", mapper);
+        shell.setVariable("params", param);
         Object returnValue = shell.evaluate(script);
 
         return (boolean) returnValue;

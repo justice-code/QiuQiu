@@ -15,9 +15,10 @@ public class DefaultComparator extends Comparator {
     @Override
     public DataNode check(RuleNode ruleNode) {
         Object[] param = RequestHolder.getRequest().getParam();
+        String mapper = RequestHolder.getRequest().getMapper();
         return Optional.ofNullable(ruleNode.getDataNodes()).map(nodes -> {
             return nodes.stream().filter(node -> {
-                return Optional.ofNullable(param).map(p -> super.script(p, node.getScript())).orElse(false);
+                return Optional.ofNullable(param).map(p -> super.script(mapper, p, node.getScript())).orElse(false);
             }).findFirst().orElse(null);
         }).orElse(null);
     }
