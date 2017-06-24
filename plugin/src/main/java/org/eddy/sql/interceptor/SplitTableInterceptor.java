@@ -48,10 +48,17 @@ public class SplitTableInterceptor implements Interceptor {
         return invocation.proceed();
     }
 
+    private void genParams(Invocation invocation, SplitRequest splitRequest) throws OgnlException {
+        Object[] params = new Object[splitRequest.getOgnl().length];
+        for (int i = 0; i < splitRequest.getOgnl().length; i++) {
+            params[i] = Ognl.getValue(splitRequest.getOgnl()[i], invocation.getArgs()[1]);
+        }
+        splitRequest.setParam(params);
+    }
+
     private void genSql(Invocation invocation, SplitRequest splitRequest) {
         try {
-            Object param = Ognl.getValue(splitRequest.getOgnl(), invocation.getArgs()[1]);
-            splitRequest.setParam(param);
+            genParams(invocation, splitRequest);
 
             BoundSql boundSql = ((MappedStatement)invocation.getArgs()[0]).getBoundSql(invocation.getArgs()[1]);
             Statement statement = CCJSqlParserUtil.parse(boundSql.getSql());

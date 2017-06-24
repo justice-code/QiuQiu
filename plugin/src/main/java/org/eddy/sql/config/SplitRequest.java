@@ -13,5 +13,5 @@ public class SplitRequest {
     @NonNull
     private String[] ognl;
 
-    private Object param;
+    private Object[] param;
 }

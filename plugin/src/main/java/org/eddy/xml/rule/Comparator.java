@@ -14,7 +14,7 @@ public abstract class Comparator {
 
     public abstract DataNode check(RuleNode ruleNode);
 
-    public boolean script(Object param, String script) {
+    public boolean script(Object[] param, String script) {
         Objects.requireNonNull(script);
 
         Binding binding = new Binding();

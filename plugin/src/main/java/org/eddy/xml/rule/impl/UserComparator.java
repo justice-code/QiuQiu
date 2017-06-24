@@ -14,7 +14,7 @@ public class UserComparator extends Comparator{
 
     @Override
     public DataNode check(RuleNode ruleNode) {
-        Object param = RequestHolder.getRequest().getParam();
+        Object[] param = RequestHolder.getRequest().getParam();
         return Optional.ofNullable(ruleNode.getDataNodes()).map(nodes -> {
             return nodes.stream().filter(node -> {
                 return Optional.ofNullable(param).map(p -> super.script(p, node.getScript())).orElse(false);
