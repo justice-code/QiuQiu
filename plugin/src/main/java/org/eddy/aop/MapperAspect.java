@@ -30,7 +30,7 @@ public abstract class MapperAspect {
         }
 
         KeyParam keyParam = method.getAnnotation(KeyParam.class);
-        String ognl = keyParam.value();
+        String[] ognl = keyParam.value();
         RequestHolder.initRequestHolder(ognl);
 
         Object result = point.proceed();

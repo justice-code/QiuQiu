@@ -14,5 +14,5 @@ public @interface KeyParam {
      * ognl 表达式
      * @return ognl 表达式
      */
-    String value();
+    String[] value();
 }

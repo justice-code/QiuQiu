@@ -11,7 +11,7 @@ import lombok.*;
 public class SplitRequest {
 
     @NonNull
-    private String ognl;
+    private String[] ognl;
 
     private Object param;
 }
