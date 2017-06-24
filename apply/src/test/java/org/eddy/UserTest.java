@@ -60,4 +60,10 @@ public class UserTest {
     public void test5() {
         userMapper.delete(1);
     }
+
+    @Test
+    @Transactional
+    public void test6() {
+        userMapper.selectUsers(1, 3);
+    }
 }
