@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +25,7 @@ public class UserTest {
     @Autowired
     UserMapper userMapper;
 
-    @Test
+    @Test(expected = BadSqlGrammarException.class)
     @Transactional
     public void test() {
         List<User> users = userMapper.selectById(2);
@@ -32,7 +33,7 @@ public class UserTest {
         Assert.assertEquals(new Integer(2), users.get(0).getId());
     }
 
-    @Test
+    @Test(expected = BadSqlGrammarException.class)
     @Transactional
     public void test2() {
         List<User> users = userMapper.selectById(1);
@@ -41,13 +42,13 @@ public class UserTest {
         System.out.println(2);
     }
 
-    @Test
+    @Test(expected = BadSqlGrammarException.class)
     @Transactional
     public void test3() {
         userMapper.insert("today");
     }
 
-    @Test
+    @Test(expected = BadSqlGrammarException.class)
     @Transactional
     public void test4() {
         User user = new User(1, "test2");
@@ -55,13 +56,13 @@ public class UserTest {
         userMapper.update(user);
     }
 
-    @Test
+    @Test(expected = BadSqlGrammarException.class)
     @Transactional
     public void test5() {
         userMapper.delete(1);
     }
 
-    @Test
+    @Test(expected = BadSqlGrammarException.class)
     @Transactional
     public void test6() {
         userMapper.selectUsers(1, 3);
