@@ -2,6 +2,7 @@ package org.eddy.ognl;
 
 import org.apache.ibatis.ognl.Ognl;
 import org.apache.ibatis.ognl.OgnlException;
+import org.apache.ibatis.parsing.PropertyParser;
 import org.eddy.xml.context.XmlDataContext;
 import org.eddy.xml.data.RuleNode;
 import org.junit.Test;
@@ -9,6 +10,7 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by eddy on 2017/6/9.
@@ -43,5 +45,14 @@ public class OgnlTest {
         Object value = Ognl.getValue("key[1].keyColumn.table", map);
         System.out.println(value);
 
+    }
+
+    @Test
+    public void test4() {
+        Properties properties = new Properties();
+        properties.put("today", "now");
+        String content = "today is ${today}";
+        String result = PropertyParser.parse(content, properties);
+        System.out.println(result);
     }
 }
