@@ -51,8 +51,15 @@ public class OgnlTest {
     public void test4() {
         Properties properties = new Properties();
         properties.put("today", "now");
-        String content = "today is ${today}";
+        properties.put("m", "l");
+        String content = "today is ${today}, ${m)";
         String result = PropertyParser.parse(content, properties);
         System.out.println(result);
+    }
+
+    @Test
+    public void test5() throws OgnlException {
+        Object value = Ognl.getValue("value", "value");
+        System.out.println(value);
     }
 }
